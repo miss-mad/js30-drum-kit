@@ -18,12 +18,6 @@
   </head>
   <body>
     <div class="keys">
-      <!-- every key on the keyboard has an assoc keycode (keycode.info).
-                         In addition to each div showing which sound should play when which letter key is pressed,
-                         the 65 is the keycode for "A" and corresponds to the sound in the HTML below.
-                         data attribute: were brought about in HTML when people were making up their own attributes.
-                         that didn't fly, so if you want to make up something like a key, you have to put it behind "data-" something.
-                         data-key: assoc keycode 65 with this sound. -->
       <div data-key="65" class="key">
         <kbd>A</kbd>
         <span class="sound">clap</span>
@@ -72,58 +66,26 @@
     <audio data-key="75" src="./assets/sounds/tom.wav"></audio>
     <audio data-key="76" src="./assets/sounds/tink.wav"></audio>
 
-    <!-- step 1: listen for a key-up event -->
     <script>
       function playSound(e) {
-        // console.log(e.keyCode);
-        // is there an audio element on the page that has a data-key of 65? (first one)
-        // select an audio element but one that has a "data-key" (can put a class of "key-65" on each audio element but that's messier)
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        console.log(audio);
-
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-        console.log(key);
-
-        // if no audio element with that data-key keyCode, return
-        if (!audio) {
-          return;
-        }
-
-        // when calling the .play() method on an audio element that's already playing, it will not play it again - this currentTime rewinds the audio to the beginning each time
+        if (!audio) return;
         audio.currentTime = 0;
-
-        // plays the audio
         audio.play();
-
-        // the .playing class in style.css adds animation to the keys on the page
         key.classList.add("playing");
       }
 
-      // create a transition-end event to remove the animation and border around the key on the page after the keydown event
-      // could use a setTimeout but there's already a timer in the style.css, so can make things confusing
-      const keys = document.querySelectorAll(`.key`);
-      console.log(keys);
-      // need to loop over each element and attach event listener that way
-
       function removeTransition(e) {
-        console.log(e);
-        // chose the TransitionEvent with the longest elapsed time (in this case all were the same) and waiting until that event is finished before ending the function
-        if (e.propertyName !== "transform") {
-          return;
-        }
-
-        console.log(e.propertyName);
-
+        if (e.propertyName !== "transform") return;
         this.classList.remove("playing");
       }
-      keys.forEach((key) => {
-        key.addEventListener("transitionend", removeTransition);
-      });
 
-      // this means we'll listen for the key-down event.
-      // when that happens, we'll run this function which will give us the event.
-      // window: whatever element that we're listening for (could also be a div, input, textarea, etc.)
-      // e: event, an object full of data describing what happened
+      const keys = document.querySelectorAll(`.key`);
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
+
       window.addEventListener("keydown", playSound);
     </script>
   </body>

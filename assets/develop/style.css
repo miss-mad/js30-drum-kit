@@ -1,6 +1,6 @@
 html {
   font-size: 10px;
-  background: url("../images/background.jpg") bottom center;
+  background: url("../images/background_unsplash.jpg") bottom center;
   background-size: cover;
 }
 
@@ -8,7 +8,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 .keys {
@@ -35,8 +35,8 @@ html {
 
 .playing {
   transform: scale(1.1);
-  border-color: #ffc600;
-  box-shadow: 0 0 1rem #ffc600;
+  border-color: #8a701b;
+  box-shadow: 0 0 1rem #d3a304;
 }
 
 kbd {
@@ -45,8 +45,8 @@ kbd {
 }
 
 .sound {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  color: #ffc600;
+  color: #d4ae5c;
 }
